@@ -1,0 +1,479 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090910">
+<title>Operação: Admirador Secreto</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #090910;
+  color: #f5f2f2;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, #a3213225, transparent 40%),
+    radial-gradient(circle at 80% 80%, #6525a525, transparent 40%);
+  pointer-events: none;
+}
+
+.container {
+  position: relative;
+  max-width: 520px;
+  margin: auto;
+  padding: 30px 20px 50px;
+}
+
+.top {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.symbol {
+  font-size: 48px;
+  margin-bottom: 15px;
+}
+
+.tag {
+  color: #e3b36e;
+  font-size: 11px;
+  letter-spacing: 4px;
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 32px;
+  margin: 15px 0;
+  line-height: 1.2;
+}
+
+h1 span {
+  color: #e3b36e;
+}
+
+.subtitle {
+  color: #aaa5b3;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.panel {
+  background: #171720;
+  border: 1px solid #39313d;
+  border-radius: 18px;
+  padding: 25px 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 15px 45px #0005;
+}
+
+.panel h2 {
+  font-size: 21px;
+  margin-bottom: 14px;
+}
+
+.panel p {
+  color: #c2bdc9;
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 15px;
+}
+
+button {
+  width: 100%;
+  padding: 16px;
+  margin-top: 12px;
+  border: 1px solid #765044;
+  border-radius: 12px;
+  background: #29212a;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .2s;
+}
+
+button:hover {
+  background: #47313a;
+  transform: translateY(-2px);
+}
+
+.primary {
+  background: #a52d3d;
+  border: none;
+}
+
+.primary:hover {
+  background: #c13a4c;
+}
+
+input {
+  width: 100%;
+  padding: 16px;
+  background: #0d0d14;
+  border: 1px solid #554353;
+  border-radius: 10px;
+  color: white;
+  font-size: 16px;
+  margin-top: 10px;
+  outline: none;
+}
+
+.progress-area {
+  margin-bottom: 22px;
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  color: #aaa5b3;
+  font-size: 12px;
+  margin-bottom: 9px;
+}
+
+.progress {
+  height: 7px;
+  background: #292530;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #a52d3d, #e3b36e);
+  transition: .4s;
+}
+
+.mission {
+  display: none;
+}
+
+.mission.active {
+  display: block;
+  animation: appear .4s ease;
+}
+
+.number {
+  color: #e3b36e;
+  font-size: 12px;
+  letter-spacing: 3px;
+  margin-bottom: 12px;
+}
+
+.feedback {
+  text-align: center;
+  color: #e3b36e;
+  min-height: 25px;
+  margin-top: 15px;
+  font-size: 13px;
+}
+
+.final {
+  display: none;
+  text-align: center;
+  animation: appear .8s ease;
+}
+
+.final h2 {
+  color: #e3b36e;
+  font-size: 15px;
+  letter-spacing: 4px;
+  margin-bottom: 25px;
+}
+
+.final-name {
+  font-size: clamp(45px, 12vw, 72px);
+  color: #e3b36e;
+  font-weight: 900;
+  letter-spacing: 5px;
+  margin: 25px 0;
+  text-shadow: 0 0 30px #e3b36655;
+}
+
+.secret {
+  color: #aaa5b3;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.warning {
+  color: #e38c8c;
+  font-size: 12px;
+  margin-top: 20px;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  50% { transform: scale(1.08); }
+}
+
+.confetti {
+  font-size: 35px;
+  animation: pulse 1s infinite;
+}
+
+footer {
+  text-align: center;
+  color: #6e6875;
+  font-size: 11px;
+  margin-top: 35px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <header class="top">
+    <div class="symbol">🕵️</div>
+    <div class="tag">ARQUIVO CONFIDENCIAL Nº 007</div>
+    <h1>OPERAÇÃO:<br><span>ADMIRADOR SECRETO</span></h1>
+    <p class="subtitle">
+      Um mistério foi criado especialmente para você.<br>
+      Sua missão é descobrir quem está por trás disso.
+    </p>
+  </header>
+
+  <div id="intro" class="panel">
+    <h2>Olá, Kaila. 👀</h2>
+    <p>
+      Recebemos informações de que existe uma pessoa
+      misteriosa querendo chamar sua atenção.
+    </p>
+    <p>
+      Mas essa pessoa não vai revelar sua identidade
+      tão facilmente.
+    </p>
+    <p>
+      Você precisará completar 4 missões para descobrir
+      quem está por trás desta brincadeira.
+    </p>
+    <button class="primary" onclick="startGame()">
+      ACEITAR A INVESTIGAÇÃO 🔍
+    </button>
+  </div>
+
+  <div id="game" style="display:none">
+
+    <div class="progress-area">
+      <div class="progress-label">
+        <span>PROGRESSO DA INVESTIGAÇÃO</span>
+        <span id="progressText">0/4</span>
+      </div>
+      <div class="progress">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+
+    <!-- MISSÃO 1 -->
+    <div class="panel mission active" id="m1">
+      <div class="number">MISSÃO 01 — A CORAGEM</div>
+      <h2>Vamos começar? 😈</h2>
+      <p>
+        Um verdadeiro detetive não foge de uma investigação.
+        Você está preparada para descobrir esse segredo?
+      </p>
+      <button class="primary" onclick="complete(1)">
+        ESTOU PREPARADA!
+      </button>
+      <button onclick="complete(1)">
+        SÓ VIM PELA CURIOSIDADE 😂
+      </button>
+    </div>
+
+    <!-- MISSÃO 2 -->
+    <div class="panel mission" id="m2">
+      <div class="number">MISSÃO 02 — O ENIGMA</div>
+      <h2>Teste sua inteligência 🧠</h2>
+      <p>
+        O que é que quanto mais você tira,
+        maior fica?
+      </p>
+      <button onclick="answerRiddle('pedra')">Uma pedra</button>
+      <button onclick="answerRiddle('buraco')">Um buraco</button>
+      <button onclick="answerRiddle('dinheiro')">Dinheiro</button>
+      <div class="feedback" id="riddleFeedback"></div>
+    </div>
+
+    <!-- MISSÃO 3 -->
+    <div class="panel mission" id="m3">
+      <div class="number">MISSÃO 03 — A PISTA ESCONDIDA</div>
+      <h2>Encontre o símbolo secreto 🔎</h2>
+      <p>
+        Entre os símbolos abaixo, encontre a lupa
+        que representa a investigação.
+      </p>
+      <button onclick="wrongSymbol()">⭐ ESTRELA</button>
+      <button onclick="wrongSymbol()">🔥 FOGO</button>
+      <button onclick="complete(3)">🔎 LUPA</button>
+      <button onclick="wrongSymbol()">❤️ CORAÇÃO</button>
+      <div class="feedback" id="symbolFeedback"></div>
+    </div>
+
+    <!-- MISSÃO 4 -->
+    <div class="panel mission" id="m4">
+      <div class="number">MISSÃO 04 — IDENTIFICAÇÃO</div>
+      <h2>Último procedimento! 🔐</h2>
+      <p>
+        Para concluir a investigação, digite seu próprio
+        nome no campo abaixo.
+      </p>
+      <input id="nameInput" placeholder="Digite seu nome..." autocomplete="off">
+      <button class="primary" onclick="checkName()">
+        CONFIRMAR IDENTIDADE
+      </button>
+      <div class="feedback" id="nameFeedback"></div>
+    </div>
+
+  </div>
+
+  <!-- REVELAÇÃO -->
+  <div class="panel final" id="final">
+    <div class="confetti">🎉 🥳 🎉</div>
+    <h2>INVESTIGAÇÃO CONCLUÍDA</h2>
+    <p class="subtitle">Kaila, você conseguiu descobrir...</p>
+
+    <div class="final-name">NORONHA</div>
+
+    <p class="secret">
+      SIM! 😂<br><br>
+      Você acabou de gastar seu precioso tempo
+      investigando uma pessoa que poderia simplesmente
+      ter mandado uma mensagem.<br><br>
+      Mas convenhamos... assim foi muito mais engraçado!
+      🤣
+    </p>
+
+    <p class="warning">
+      CASO ENCERRADO. O SUSPEITO FOI IDENTIFICADO.
+    </p>
+
+    <button class="primary" onclick="restartGame()">
+      INVESTIGAR NOVAMENTE 🔄
+    </button>
+  </div>
+
+  <footer>
+    OPERAÇÃO CONFIDENCIAL • ACESSO AUTORIZADO A KAILA
+  </footer>
+
+</div>
+
+<script>
+let current = 1;
+const total = 4;
+
+function startGame() {
+  document.getElementById("intro").style.display = "none";
+  document.getElementById("game").style.display = "block";
+  updateProgress();
+}
+
+function updateProgress() {
+  document.getElementById("progressText").textContent =
+    (current - 1) + "/" + total;
+
+  document.getElementById("progressFill").style.width =
+    ((current - 1) / total * 100) + "%";
+}
+
+function complete(number) {
+  if (number !== current) return;
+
+  document.getElementById("m" + number).classList.remove("active");
+
+  if (number === total) {
+    document.getElementById("game").style.display = "none";
+    document.getElementById("final").style.display = "block";
+    document.getElementById("progressFill").style.width = "100%";
+    document.getElementById("progressText").textContent = "4/4";
+    window.scrollTo({top: 0, behavior: "smooth"});
+    return;
+  }
+
+  current++;
+  document.getElementById("m" + current).classList.add("active");
+  updateProgress();
+  window.scrollTo({top: 0, behavior: "smooth"});
+}
+
+function answerRiddle(answer) {
+  const feedback = document.getElementById("riddleFeedback");
+
+  if (answer === "buraco") {
+    feedback.textContent = "Boa! Você está indo bem! 😎";
+    setTimeout(() => complete(2), 700);
+  } else {
+    feedback.textContent = "Resposta errada! Tente novamente 😂";
+  }
+}
+
+function wrongSymbol() {
+  document.getElementById("symbolFeedback").textContent =
+    "Esse não é o símbolo secreto! Continue procurando. 👀";
+}
+
+function checkName() {
+  const value = document.getElementById("nameInput")
+    .value.trim().toLowerCase();
+
+  const feedback = document.getElementById("nameFeedback");
+
+  if (value === "kaila") {
+    feedback.textContent = "Identidade confirmada! Preparando revelação... 🎉";
+    setTimeout(() => complete(4), 900);
+  } else {
+    feedback.textContent = "Hmm... confira se digitou seu nome corretamente.";
+  }
+}
+
+function restartGame() {
+  current = 1;
+
+  document.getElementById("final").style.display = "none";
+  document.getElementById("intro").style.display = "block";
+  document.getElementById("game").style.display = "none";
+
+  for (let i = 1; i <= total; i++) {
+    document.getElementById("m" + i).classList.remove("active");
+  }
+
+  document.getElementById("m1").classList.add("active");
+  document.getElementById("nameInput").value = "";
+  document.getElementById("riddleFeedback").textContent = "";
+  document.getElementById("symbolFeedback").textContent = "";
+  document.getElementById("nameFeedback").textContent = "";
+
+  updateProgress();
+  window.scrollTo({top: 0, behavior: "smooth"});
+}
+</script>
+
+</body>
+</html>
