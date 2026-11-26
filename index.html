@@ -1,329 +1,165 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080d0a">
-<title>DZ SOCIAL | Painel</title>
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DZ SMS – códigos SMS</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:#080d0a;color:#fff;font-family:Arial,sans-serif}
-header{
-  background:#101912;padding:20px 6%;
-  display:flex;justify-content:space-between;
-  align-items:center;border-bottom:1px solid #263b2b
-}
-.logo{font-size:25px;font-weight:900}
-.logo span{color:#20e879}
-.header-right{color:#20e879;font-size:12px}
-.hero{text-align:center;padding:45px 15px}
-.hero h1{font-size:32px;margin-bottom:12px}
-.hero h1 span{color:#20e879}
-.hero p{color:#9bac9f;line-height:1.7}
-.container{width:92%;max-width:760px;margin:15px auto 45px}
-.panel{
-  background:#101912;border:1px solid #263b2b;
-  border-radius:15px;padding:22px;margin-bottom:18px
-}
-h2{font-size:19px;margin-bottom:18px}
-label{display:block;margin:19px 0 8px;font-size:14px;font-weight:bold}
-input,select,textarea{
-  width:100%;padding:14px;background:#19271e;
-  border:1px solid #304936;border-radius:8px;
-  color:white;font-size:15px
-}
-input:focus,select:focus,textarea:focus{outline:1px solid #20e879}
-option{background:#19271e}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.price{
-  background:#14271a;border:1px solid #20a957;
-  padding:20px;border-radius:12px;margin-top:22px
-}
-.price small{color:#a8bbaa}
-.price strong{display:block;font-size:29px;color:#20e879;margin-top:8px}
-.details{color:#a8bbaa;font-size:13px;margin-top:12px;line-height:1.7}
-button{
-  width:100%;padding:16px;border:0;border-radius:9px;
-  background:#20e879;color:#061109;font-weight:bold;
-  font-size:16px;margin-top:18px;cursor:pointer
-}
-button.secondary{background:#26372b;color:white}
-.summary{
-  background:#19271e;padding:16px;border-radius:10px;
-  line-height:1.8;color:#c4d5c8;font-size:14px
-}
-.notice{font-size:12px;color:#829487;line-height:1.6;margin-top:14px}
-footer{
-  text-align:center;padding:25px;color:#718477;
-  border-top:1px solid #263b2b;font-size:13px
-}
-.hidden{display:none}
-@media(max-width:500px){
-  .grid{grid-template-columns:1fr}
-  .hero h1{font-size:27px}
-  .panel{padding:17px}
-}
+:root{--bg:#eef2ef;--card:#fff;--ink:#16221d;--mute:#5d6b64;--line:#d5ddd8;--acc:#0f6b4f;--accink:#fff;--code:#e8590c;--err:#fde4e1;--errink:#8a1c10;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root{--bg:#101814;--card:#18231e;--ink:#e8f0ec;--mute:#9baba3;--line:#2b3a33;--acc:#3fcf9b;--accink:#06231a;--code:#ff9b57;--err:#3d1c18;--errink:#ffb4a8}}
+*,*:before,*:after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 "Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:560px;margin:0 auto;padding:20px 16px 40px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0}
+.bal{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-weight:600}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+h2{font-size:17px;margin:0 0 10px;font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:transparent;color:var(--ink);padding:8px 14px;border-radius:999px;font:inherit;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--acc);color:var(--accink);border-color:var(--acc);font-weight:600}
+select{width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit}
+.price{display:flex;justify-content:space-between;align-items:baseline;margin:14px 0 10px}
+.price b{font-size:28px;font-weight:800}
+.btn{width:100%;padding:13px;border:0;border-radius:12px;background:var(--acc);color:var(--accink);font-family:inherit;font-weight:600;font-size:16px;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);margin-top:8px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+:focus-visible{outline:3px solid var(--code);outline-offset:2px}
+.num{font-size:26px;font-weight:800;letter-spacing:.02em;word-break:break-all}
+.codebox{margin:12px 0;padding:14px;border:2px dashed var(--line);border-radius:12px;text-align:center}
+.code{font-size:40px;font-weight:800;letter-spacing:.18em;color:var(--code)}
+.wait{color:var(--mute)}
+.msg{background:var(--err);color:var(--errink);border-radius:10px;padding:10px 12px;font-size:14px;margin-bottom:14px}
+ul{list-style:none;margin:0;padding:0}
+li{display:flex;justify-content:space-between;gap:8px;padding:9px 0;border-top:1px solid var(--line);font-size:14px}
+li:first-child{border-top:0}
+.empty{color:var(--mute);font-size:14px}
+.hide{display:none}
 </style>
 </head>
-
 <body>
+<main>
+<header><h1>DZ SMS</h1><div class="bal" id="bal">R$ –</div></header>
+<div class="msg hide" id="msg" role="alert"></div>
 
-<header>
-  <div class="logo">DZ <span>SOCIAL</span></div>
-  <div class="header-right">PAINEL DIGITAL</div>
-</header>
-
-<section class="hero">
-  <h1>PAINEL <span>DZ SOCIAL</span></h1>
-  <p>Escolha seu serviço, personalize seu pedido<br>
-  e solicite seu orçamento.</p>
+<section>
+<h2>1. Escolha o serviço</h2>
+<div class="chips" id="services"></div>
+<h2 style="margin-top:16px">2. Escolha o país</h2>
+<select id="country" aria-label="País"></select>
+<div class="price"><span class="wait">Preço deste número</span><b id="price">–</b></div>
+<button class="btn" id="go">Comprar número</button>
 </section>
 
-<main class="container">
-
-<section class="panel">
-  <h2>🛍️ Catálogo de serviços</h2>
-
-  <label for="search">🔎 Pesquisar serviço</label>
-  <input id="search" type="search" placeholder="Digite o nome do serviço">
-
-  <label for="category">Categoria</label>
-  <select id="category">
-    <option value="instagram">📸 Instagram</option>
-    <option value="tiktok">🎵 TikTok</option>
-    <option value="kwai">🟠 Kwai</option>
-    <option value="youtube">▶️ YouTube</option>
-    <option value="facebook">🔵 Facebook</option>
-    <option value="telegram">✈️ Telegram</option>
-  </select>
-
-  <label for="service">Serviço</label>
-  <select id="service"></select>
-
-  <div id="description" class="details"></div>
-
-  <label for="link">🔗 Link do perfil ou conteúdo</label>
-  <input id="link" type="url" placeholder="https://...">
-
-  <div class="grid">
-    <div>
-      <label for="quantity">Quantidade</label>
-      <input id="quantity" type="number" min="1" max="100" value="1">
-    </div>
-    <div>
-      <label for="unit">Unidade</label>
-      <input id="unit" readonly>
-    </div>
-  </div>
-
-  <div class="price">
-    <small>Valor estimado</small>
-    <strong id="total">R$ 0,00</strong>
-    <div class="details" id="priceDetails"></div>
-  </div>
-
-  <button id="addOrder">Adicionar ao resumo</button>
-
-  <p class="notice">
-    Valores demonstrativos, sujeitos a confirmação de orçamento.
-    Nenhum pagamento é processado nesta versão.
-  </p>
+<section id="order" class="hide" aria-live="polite">
+<h2 id="otitle">Seu número</h2>
+<div class="num" id="onum"></div>
+<div class="codebox"><div id="ostat" class="wait">Aguardando SMS…</div><div class="code hide" id="ocode"></div></div>
+<div class="wait" id="otimer"></div>
+<button class="btn hide" id="copy">Copiar código</button>
+<button class="btn ghost" id="cancel">Cancelar e devolver o saldo</button>
 </section>
 
-<section class="panel">
-  <h2>📋 Resumo do pedido</h2>
-  <div id="summary" class="summary">
-    Nenhum serviço selecionado.
-  </div>
-  <button id="clear" class="secondary">Limpar pedido</button>
+<section>
+<h2>Histórico desta sessão</h2>
+<ul id="hist"></ul><p class="empty" id="hempty">Nenhum pedido ainda.</p>
 </section>
-
 </main>
-
-<footer>
-  © 2026 DZ SOCIAL — Todos os direitos reservados.
-</footer>
-
 <script>
-const catalog = {
-  instagram: [
-    {id:"posts",name:"Criação de posts",price:15,unit:"arte",description:"Criação de artes personalizadas para publicações."},
-    {id:"stories",name:"Design de Stories",price:12,unit:"arte",description:"Criação de Stories personalizados para sua marca."},
-    {id:"management",name:"Gestão de perfil",price:89,unit:"período",description:"Planejamento e acompanhamento de perfil."},
-    {id:"report",name:"Relatório de desempenho",price:35,unit:"relatório",description:"Análise de métricas e resultados."}
-  ],
-  tiktok: [
-    {id:"video",name:"Edição de vídeos",price:25,unit:"vídeo",description:"Edição profissional de vídeos curtos."},
-    {id:"script",name:"Roteiro para vídeos",price:18,unit:"roteiro",description:"Criação de roteiros para conteúdo."},
-    {id:"planning",name:"Planejamento de conteúdo",price:59,unit:"plano",description:"Planejamento de publicações e conteúdo."}
-  ],
-  kwai: [
-    {id:"kwai-video",name:"Edição de vídeos",price:25,unit:"vídeo",description:"Edição de vídeos para publicação."},
-    {id:"kwai-design",name:"Arte para perfil",price:15,unit:"arte",description:"Criação de identidade visual para perfil."}
-  ],
-  youtube: [
-    {id:"thumbnail",name:"Thumbnail profissional",price:20,unit:"imagem",description:"Criação de capa para vídeos."},
-    {id:"youtube-edit",name:"Edição de vídeo",price:45,unit:"vídeo",description:"Edição e finalização de vídeos."},
-    {id:"youtube-report",name:"Análise do canal",price:35,unit:"relatório",description:"Relatório de desempenho do canal."}
-  ],
-  facebook: [
-    {id:"facebook-design",name:"Artes para Facebook",price:15,unit:"arte",description:"Criação de materiais gráficos."},
-    {id:"facebook-management",name:"Gestão de página",price:89,unit:"período",description:"Organização e acompanhamento da página."}
-  ],
-  telegram: [
-    {id:"telegram-design",name:"Arte para canal",price:15,unit:"arte",description:"Criação de materiais visuais para canais."},
-    {id:"telegram-content",name:"Planejamento de conteúdo",price:49,unit:"plano",description:"Organização de conteúdo para canal ou comunidade."}
-  ]
+var SERVICES={wa:"WhatsApp",tg:"Telegram",ig:"Instagram",fb:"Facebook",tt:"TikTok"};
+var COUNTRIES=[[73,"Brasil"],[187,"Estados Unidos"],[16,"Reino Unido"],[22,"Índia"]];
+var state={svc:"wa",bal:null,order:null,hist:[]},poll=null,tick=null;
+var $=function(i){return document.getElementById(i)};
+var brl=function(v){return "R$ "+Number(v).toFixed(2).replace(".",",")};
+
+// Mesma fórmula do server.js, só para mostrar o preço antes da compra.
+// O servidor é quem cobra de verdade.
+function price(){var c=COUNTRIES[$("country").value][0];return 2.5*(state.svc==="wa"?1:1.1)*(c===73?1:1.5)}
+
+async function api(path,method){
+  var r=await fetch(path,{method:method||"GET"});
+  var j=await r.json().catch(function(){return{}});
+  if(!r.ok)throw new Error(j.error||"Erro de conexão. Tente de novo.");
+  return j;
+}
+function showMsg(t){var m=$("msg");m.textContent=t||"";m.className=t?"msg":"msg hide"}
+async function loadBalance(){try{state.bal=(await api("/api/balance")).balance}catch(e){showMsg(e.message)}render()}
+
+function render(){
+  $("bal").textContent=state.bal===null?"R$ –":brl(state.bal);
+  $("price").textContent=brl(price());
+  $("go").disabled=!!state.order||(state.bal!==null&&state.bal<price());
+  var h=$("hist");h.innerHTML="";
+  state.hist.forEach(function(x){var l=document.createElement("li"),a=document.createElement("span"),b=document.createElement("span");a.textContent=x.s+" · +"+x.n;b.textContent=x.t;l.appendChild(a);l.appendChild(b);h.appendChild(l)});
+  $("hempty").className=state.hist.length?"hide":"empty";
+}
+
+function init(){
+  var box=$("services");
+  Object.keys(SERVICES).forEach(function(k){
+    var b=document.createElement("button");b.className="chip";b.textContent=SERVICES[k];b.setAttribute("aria-pressed",k===state.svc);
+    b.onclick=function(){state.svc=k;[].forEach.call(box.children,function(c){c.setAttribute("aria-pressed",c===b)});render()};
+    box.appendChild(b);
+  });
+  COUNTRIES.forEach(function(c,i){var o=document.createElement("option");o.value=i;o.textContent=c[1];$("country").appendChild(o)});
+  $("country").onchange=render;
+  render();loadBalance();
+}
+
+function finish(status){
+  clearInterval(poll);clearInterval(tick);
+  var o=state.order;if(o)state.hist.unshift({s:o.svc,n:o.phone,t:status});
+  state.order=null;$("order").className="hide";$("cancel").textContent="Cancelar e devolver o saldo";
+  loadBalance();
+}
+
+$("go").onclick=async function(){
+  showMsg("");$("go").disabled=true;
+  var c=COUNTRIES[$("country").value];
+  try{
+    var r=await fetch("/api/order",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({service:state.svc,country:c[0]})});
+    var j=await r.json().catch(function(){return{}});
+    if(!r.ok)throw new Error(j.error||"Não foi possível comprar agora.");
+    state.order={id:j.id,phone:j.phone,svc:SERVICES[state.svc],price:j.price,code:null,left:300};
+    $("order").className="";$("otitle").textContent="Número para "+state.order.svc;$("onum").textContent="+"+j.phone;
+    $("ostat").textContent="Aguardando SMS…";$("ocode").className="code hide";$("copy").className="btn hide";$("cancel").className="btn ghost";
+    $("order").scrollIntoView({behavior:"smooth"});
+    loadBalance();
+    tick=setInterval(function(){var o=state.order;if(!o||o.code)return;o.left=Math.max(0,o.left-1);var m=Math.floor(o.left/60),s=o.left%60;$("otimer").textContent="Tempo restante: "+m+":"+(s<10?"0":"")+s},1000);
+    poll=setInterval(checkOrder,3000);
+  }catch(e){showMsg(e.message);state.order=null;render()}
 };
 
-const category = document.getElementById("category");
-const service = document.getElementById("service");
-const quantity = document.getElementById("quantity");
-const search = document.getElementById("search");
-const link = document.getElementById("link");
-const unit = document.getElementById("unit");
-const total = document.getElementById("total");
-const description = document.getElementById("description");
-const priceDetails = document.getElementById("priceDetails");
-const summary = document.getElementById("summary");
-
-let orders = [];
-
-function money(value){
-  return value.toLocaleString("pt-BR",{
-    style:"currency",
-    currency:"BRL"
-  });
-}
-
-function getServices(){
-  return catalog[category.value] || [];
-}
-
-function renderServices(){
-  const term = search.value.toLowerCase();
-
-  const available = getServices().filter(item =>
-    item.name.toLowerCase().includes(term)
-  );
-
-  service.innerHTML = "";
-
-  if(available.length === 0){
-    const option = document.createElement("option");
-    option.value = "";
-    option.textContent = "Nenhum serviço encontrado";
-    service.appendChild(option);
-  }else{
-    available.forEach(item => {
-      const option = document.createElement("option");
-      option.value = item.id;
-      option.textContent = item.name;
-      service.appendChild(option);
-    });
-  }
-
-  calculate();
-}
-
-function selectedService(){
-  return getServices().find(item => item.id === service.value);
-}
-
-function calculate(){
-  const item = selectedService();
-
-  if(!item){
-    total.textContent = money(0);
-    unit.value = "";
-    description.textContent = "Nenhum serviço encontrado.";
-    priceDetails.textContent = "";
-    return;
-  }
-
-  let amount = Math.max(1,Math.min(100,Number(quantity.value) || 1));
-  quantity.value = amount;
-
-  const value = item.price * amount;
-
-  total.textContent = money(value);
-  unit.value = item.unit;
-  description.textContent = item.description;
-  priceDetails.textContent =
-    money(item.price) + " por " + item.unit +
-    " × " + amount + " = " + money(value);
-}
-
-function renderSummary(){
-  if(orders.length === 0){
-    summary.textContent = "Nenhum serviço selecionado.";
-    return;
-  }
-
-  const lines = orders.map((item,index) =>
-    (index+1) + ". " + item.name +
-    " | Quantidade: " + item.quantity +
-    " | " + money(item.total) +
-    " | Link: " + item.link
-  );
-
-  const grandTotal = orders.reduce((sum,item) => sum + item.total,0);
-
-  summary.textContent =
-    lines.join("\n\n") +
-    "\n\nTOTAL: " + money(grandTotal);
-}
-
-category.addEventListener("change",renderServices);
-search.addEventListener("input",renderServices);
-service.addEventListener("change",calculate);
-quantity.addEventListener("input",calculate);
-
-document.getElementById("addOrder").addEventListener("click",()=>{
-  const item = selectedService();
-  const profileLink = link.value.trim();
-
-  if(!item){
-    alert("Selecione um serviço.");
-    return;
-  }
-
-  if(!profileLink){
-    alert("Informe o link do perfil ou conteúdo.");
-    return;
-  }
-
+async function checkOrder(){
+  var o=state.order;if(!o)return;
   try{
-    const parsed = new URL(profileLink);
-    if(!["http:","https:"].includes(parsed.protocol)){
-      throw new Error("Link inválido");
-    }
-  }catch(error){
-    alert("Informe um link válido começando com https://");
-    return;
-  }
+    var j=await api("/api/order/"+o.id);
+    if(j.status==="ok"&&j.code){
+      o.code=j.code;clearInterval(poll);clearInterval(tick);$("otimer").textContent="";
+      $("ostat").textContent="Código recebido";$("ocode").textContent=j.code;$("ocode").className="code";
+      $("copy").className="btn";$("cancel").textContent="Concluir";
+    }else if(j.status==="cancelled"){finish("Expirou, saldo devolvido")}
+  }catch(e){/* tenta de novo no próximo ciclo */}
+}
 
-  const amount = Number(quantity.value) || 1;
+$("cancel").onclick=async function(){
+  var o=state.order;if(!o)return;
+  if(o.code){finish("Concluído · "+brl(o.price));return}
+  try{
+    var j=await api("/api/order/"+o.id+"/cancel","POST");
+    if(j.status==="cancelled")finish("Cancelado, saldo devolvido");
+    else showMsg(j.error||"Aguarde um pouco para cancelar.");
+  }catch(e){showMsg(e.message)}
+};
 
-  orders.push({
-    name:item.name,
-    quantity:amount,
-    total:item.price * amount,
-    link:profileLink
-  });
+$("copy").onclick=function(){
+  var c=state.order&&state.order.code;
+  try{navigator.clipboard.writeText(c);$("copy").textContent="Copiado"}catch(e){$("copy").textContent=c}
+};
 
-  renderSummary();
-  alert("Serviço adicionado ao resumo!");
-});
-
-document.getElementById("clear").addEventListener("click",()=>{
-  orders = [];
-  renderSummary();
-});
-
-renderServices();
+init();
 </script>
-
 </body>
 </html>
